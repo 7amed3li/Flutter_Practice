@@ -39,4 +39,4 @@ This repository is organized as a **Monorepo**, containing multiple independent 
    ```
 
 ---
-*Created and maintained by [Ahmed Ali](https://github.com/7amed3li)*
+*Created and maintained by [Hamed mohamed](https://github.com/7amed3li)*
