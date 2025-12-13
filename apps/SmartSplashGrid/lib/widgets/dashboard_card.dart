@@ -4,12 +4,14 @@ class DashboardCard extends StatefulWidget {
   final String title;
   final IconData icon;
   final LinearGradient gradient;
+  final VoidCallback? onTap;
 
   const DashboardCard({
     super.key,
     required this.title,
     required this.icon,
     required this.gradient,
+    this.onTap,
   });
 
   @override
@@ -68,13 +70,17 @@ class _DashboardCardState extends State<DashboardCard>
       onTapCancel: _onTapCancel,
       onTap: () {
         // Handle card tap
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${widget.title} tapped!'),
-            duration: const Duration(seconds: 1),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        if (widget.onTap != null) {
+          widget.onTap!();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${widget.title} tapped!'),
+              duration: const Duration(seconds: 1),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       },
       child: AnimatedBuilder(
         animation: _scaleAnimation,
@@ -100,7 +106,6 @@ class _DashboardCardState extends State<DashboardCard>
                 color: Colors.transparent,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(22),
-                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(

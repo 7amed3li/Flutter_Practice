@@ -111,6 +111,8 @@ class _SplashScreenState extends State<SplashScreen>
   }
   
   void _navigateToHome() {
+    if (!mounted) return;
+    
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>

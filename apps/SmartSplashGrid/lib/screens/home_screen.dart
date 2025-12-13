@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/dashboard_card.dart';
 import '../theme/app_theme.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -48,18 +49,18 @@ class HomeScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 15,
                   crossAxisSpacing: 15,
-                  children: const [
-                    DashboardCard(
+                  children: [
+                    const DashboardCard(
                       title: 'Analytics',
                       icon: Icons.analytics_rounded,
                       gradient: AppTheme.cardGradient1,
                     ),
-                    DashboardCard(
+                    const DashboardCard(
                       title: 'Reports',
                       icon: Icons.assessment_rounded,
                       gradient: AppTheme.cardGradient2,
                     ),
-                    DashboardCard(
+                    const DashboardCard(
                       title: 'Settings',
                       icon: Icons.settings_rounded,
                       gradient: AppTheme.cardGradient3,
@@ -68,6 +69,13 @@ class HomeScreen extends StatelessWidget {
                       title: 'Profile',
                       icon: Icons.person_rounded,
                       gradient: AppTheme.cardGradient4,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
