@@ -3,18 +3,28 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/premium_button.dart';
+import 'login_screen.dart'; // Import for FadeIn widget
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppTheme.deepBlue),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-          color: Color(0xFFF5F7FA), // Light background for contrast
+          color: Color(0xFFF5F7FA),
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -22,29 +32,13 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 100),
-              // Header Section
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/dashboard');
-                      },
-                      child: Text(
-                        'Misafir Olarak Devam Et',
-                        style: GoogleFonts.poppins(
-                          color: AppTheme.primaryBlue,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
                   FadeIn(
                     delay: 200,
                     child: Text(
-                      'Tekrar Hoşgeldiniz,',
+                      'Hesap Oluştur',
                       style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -55,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                   FadeIn(
                     delay: 400,
                     child: Text(
-                      'Keşfetmeye devam etmek için giriş yapın',
+                      'Başlamak için kayıt olun!',
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: Colors.grey[600],
@@ -65,13 +59,17 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               
-              // Form Section
               FadeIn(
                 delay: 600,
                 child: Column(
                   children: [
+                    const CustomTextField(
+                      hintText: 'Ad Soyad',
+                      prefixIcon: Icons.person_outline,
+                    ),
+                    const SizedBox(height: 20),
                     const CustomTextField(
                       hintText: 'E-posta Adresi',
                       prefixIcon: Icons.email_outlined,
@@ -84,33 +82,25 @@ class LoginScreen extends StatelessWidget {
                       isPassword: true,
                     ),
                     const SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Şifremi Unuttum?',
-                          style: GoogleFonts.poppins(
-                            color: AppTheme.primaryBlue,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
+                    const CustomTextField(
+                      hintText: 'Şifreyi Onayla',
+                      prefixIcon: Icons.lock_outline,
+                      isPassword: true,
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 40),
                     PremiumButton(
-                      text: 'GİRİŞ YAP',
+                      text: 'KAYIT OL',
                       onPressed: () {
-                        // TODO: Implement Login Logic
+                        // TODO: Implement Signup Logic
                       },
+                      gradient: AppTheme.cardGradient2, // Different gradient for variety
                     ),
                   ],
                 ),
               ),
               
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               
-              // Footer Section
               FadeIn(
                 delay: 800,
                 child: Center(
@@ -118,17 +108,17 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Hesabınız yok mu? ",
+                        "Zaten hesabınız var mı? ",
                         style: GoogleFonts.poppins(
                           color: Colors.grey[600],
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/signup');
+                          Navigator.pop(context);
                         },
                         child: Text(
-                          'Kayıt Ol',
+                          'Giriş Yap',
                           style: GoogleFonts.poppins(
                             color: AppTheme.primaryBlue,
                             fontWeight: FontWeight.bold,
@@ -143,62 +133,6 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// Simple FadeIn Animation Widget
-class FadeIn extends StatefulWidget {
-  final Widget child;
-  final int delay;
-
-  const FadeIn({super.key, required this.child, required this.delay});
-
-  @override
-  State<FadeIn> createState() => _FadeInState();
-}
-
-class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  late Animation<Offset> _slideAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-
-    _animation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
-    Future.delayed(Duration(milliseconds: widget.delay), () {
-      if (mounted) _controller.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animation,
-      child: SlideTransition(
-        position: _slideAnimation,
-        child: widget.child,
       ),
     );
   }

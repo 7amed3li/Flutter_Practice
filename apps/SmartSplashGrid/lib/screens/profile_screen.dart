@@ -90,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       const Text(
-                        'My Videos',
+                        'Videolarım',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -110,7 +110,7 @@ class ProfileScreen extends StatelessWidget {
                     duration: '9:56',
                     views: '1.2M views',
                     uploadDate: '2 weeks ago',
-                    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                    videoUrl: 'assets/videos/video1.mp4',
                     thumbnailGradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -129,7 +129,7 @@ class ProfileScreen extends StatelessWidget {
                     duration: '10:53',
                     views: '850K views',
                     uploadDate: '1 month ago',
-                    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                    videoUrl: 'assets/videos/video2.mp4',
                     thumbnailGradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -148,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                     duration: '0:15',
                     views: '620K views',
                     uploadDate: '3 weeks ago',
-                    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                    videoUrl: 'assets/videos/video3.mp4',
                     thumbnailGradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -161,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
                   
                   // Stats Section
                   const Text(
-                    'Channel Statistics',
+                    'Kanal İstatistikleri',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -176,8 +176,8 @@ class ProfileScreen extends StatelessWidget {
                       Expanded(
                         child: _buildStatCard(
                           icon: Icons.video_library,
-                          value: '24',
-                          label: 'Videos',
+                          value: '3',
+                          label: 'Videolar',
                           gradient: AppTheme.cardGradient1,
                         ),
                       ),
@@ -186,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                         child: _buildStatCard(
                           icon: Icons.people,
                           value: '12.5K',
-                          label: 'Subscribers',
+                          label: 'Aboneler',
                           gradient: AppTheme.cardGradient2,
                         ),
                       ),
@@ -194,8 +194,8 @@ class ProfileScreen extends StatelessWidget {
                       Expanded(
                         child: _buildStatCard(
                           icon: Icons.visibility,
-                          value: '2.8M',
-                          label: 'Views',
+                          value: '2.7M',
+                          label: 'İzlenme',
                           gradient: AppTheme.cardGradient3,
                         ),
                       ),
