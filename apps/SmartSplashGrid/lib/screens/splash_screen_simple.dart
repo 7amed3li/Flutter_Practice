@@ -52,7 +52,7 @@ class _SplashScreenSimpleState extends State<SplashScreenSimple> {
               ),
               SizedBox(height: 20),
               Text(
-                'SmartSplashGrid',
+                'Bebek Anne',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,

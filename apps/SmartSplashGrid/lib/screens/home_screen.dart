@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: const Text(
-          'Kontrol Paneli',
+          'Anne Bebek Sağlığı',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 28,
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               
               // Welcome text
               Text(
-                'Tekrar Hoşgeldiniz!',
+                'Hoş geldiniz!',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.grey[600],
@@ -51,22 +51,22 @@ class HomeScreen extends StatelessWidget {
                   crossAxisSpacing: 15,
                   children: [
                     const DashboardCard(
-                      title: 'Analitik',
+                      title: '7/24 Ebe Destek',
                       icon: Icons.analytics_rounded,
                       gradient: AppTheme.cardGradient1,
                     ),
                     const DashboardCard(
-                      title: 'Raporlar',
+                      title: 'Önemli Bilgiler',
                       icon: Icons.assessment_rounded,
                       gradient: AppTheme.cardGradient2,
                     ),
                     const DashboardCard(
-                      title: 'Ayarlar',
+                      title: 'Konular',
                       icon: Icons.settings_rounded,
                       gradient: AppTheme.cardGradient3,
                     ),
                     DashboardCard(
-                      title: 'Profil',
+                      title: 'Video Eğitimler',
                       icon: Icons.person_rounded,
                       gradient: AppTheme.cardGradient4,
                       onTap: () {

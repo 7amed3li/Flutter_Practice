@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../theme/app_theme.dart';
-
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _logoController;
   late AnimationController _textController;
   late AnimationController _backgroundController;
-  
+
   late Animation<double> _logoScaleAnimation;
   late Animation<double> _logoFadeAnimation;
   late Animation<double> _textFadeAnimation;
@@ -25,25 +25,25 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    
+
     // Logo animation controller
     _logoController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     // Text animation controller
     _textController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    
+
     // Background animation controller
     _backgroundController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
-    
+
     // Logo scale animation with bounce effect
     _logoScaleAnimation = Tween<double>(
       begin: 0.8,
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _logoController,
       curve: Curves.elasticOut,
     ));
-    
+
     // Logo fade animation
     _logoFadeAnimation = Tween<double>(
       begin: 0.0,
@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _logoController,
       curve: Curves.easeIn,
     ));
-    
+
     // Text fade animation
     _textFadeAnimation = Tween<double>(
       begin: 0.0,
@@ -70,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _textController,
       curve: Curves.easeIn,
     ));
-    
+
     // Text slide animation from bottom
     _textSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.5),
@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _textController,
       curve: Curves.easeOutCubic,
     ));
-    
+
     // Background opacity animation
     _backgroundOpacityAnimation = Tween<double>(
       begin: 0.7,
@@ -88,33 +88,44 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _backgroundController,
       curve: Curves.easeInOut,
     ));
-    
+
     // Start animations
     _startAnimations();
-    
+
     // Navigate to home screen after 3 seconds
     Timer(const Duration(seconds: 3), () {
       _navigateToHome();
     });
   }
-  
+
   void _startAnimations() {
     _backgroundController.forward();
-    
+
     Future.delayed(const Duration(milliseconds: 300), () {
       _logoController.forward();
     });
-    
+
     Future.delayed(const Duration(milliseconds: 800), () {
       _textController.forward();
     });
   }
-  
+
   void _navigateToHome() {
     if (!mounted) return;
-    
-    // Navigate to Login Screen instead of Home
-    Navigator.of(context).pushReplacementNamed('/login');
+
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HomeScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 800),
+      ),
+    );
   }
 
   @override
@@ -132,7 +143,7 @@ class _SplashScreenState extends State<SplashScreen>
         animation: _backgroundOpacityAnimation,
         builder: (context, child) {
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: AppTheme.splashGradient,
             ),
             child: Stack(
@@ -154,7 +165,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                 ),
-                
+
                 // Main content
                 Center(
                   child: Column(
@@ -205,13 +216,16 @@ class _SplashScreenState extends State<SplashScreen>
                                         crossAxisCount: 2,
                                         mainAxisSpacing: 8,
                                         crossAxisSpacing: 8,
-                                        physics: const NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         children: List.generate(
                                           4,
                                           (index) => Container(
                                             decoration: BoxDecoration(
-                                              color: Colors.white.withOpacity(0.9),
-                                              borderRadius: BorderRadius.circular(6),
+                                              color:
+                                                  Colors.white.withOpacity(0.9),
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
                                             ),
                                           ),
                                         ),
@@ -224,9 +238,9 @@ class _SplashScreenState extends State<SplashScreen>
                           );
                         },
                       ),
-                      
+
                       const SizedBox(height: 40),
-                      
+
                       // Animated text
                       SlideTransition(
                         position: _textSlideAnimation,
@@ -235,7 +249,7 @@ class _SplashScreenState extends State<SplashScreen>
                           child: Column(
                             children: [
                               Text(
-                                'SmartSplashGrid',
+                                'Bebek Anne',
                                 style: TextStyle(
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold,
@@ -250,9 +264,9 @@ class _SplashScreenState extends State<SplashScreen>
                                   ],
                                 ),
                               ),
-                              
+
                               const SizedBox(height: 20),
-                              
+
                               // Loading indicator
                               const SizedBox(
                                 width: 40,
