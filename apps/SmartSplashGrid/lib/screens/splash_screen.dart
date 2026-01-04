@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:math';
+import '../core/core.dart';
 import '../theme/app_theme.dart';
-import 'home_screen.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,16 +17,26 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _logoController;
   late AnimationController _textController;
   late AnimationController _backgroundController;
+  late AnimationController _quoteController;
 
   late Animation<double> _logoScaleAnimation;
   late Animation<double> _logoFadeAnimation;
   late Animation<double> _textFadeAnimation;
   late Animation<Offset> _textSlideAnimation;
   late Animation<double> _backgroundOpacityAnimation;
+  late Animation<double> _quoteFadeAnimation;
+
+  /// Random motivational quote selected on each app launch
+  late final String _selectedQuote;
 
   @override
   void initState() {
     super.initState();
+
+    // Select random motivational quote on each app launch
+    final random = Random();
+    _selectedQuote = AppStrings.motivationalQuotes[
+        random.nextInt(AppStrings.motivationalQuotes.length)];
 
     // Logo animation controller
     _logoController = AnimationController(
@@ -41,6 +53,12 @@ class _SplashScreenState extends State<SplashScreen>
     // Background animation controller
     _backgroundController = AnimationController(
       duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    );
+
+    // Quote animation controller
+    _quoteController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -89,11 +107,20 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeInOut,
     ));
 
+    // Quote fade animation
+    _quoteFadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _quoteController,
+      curve: Curves.easeIn,
+    ));
+
     // Start animations
     _startAnimations();
 
-    // Navigate to home screen after 3 seconds
-    Timer(const Duration(seconds: 3), () {
+    // Navigate to home screen after 5 seconds (extended for reading quote)
+    Timer(const Duration(seconds: 5), () {
       _navigateToHome();
     });
   }
@@ -108,6 +135,11 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(milliseconds: 800), () {
       _textController.forward();
     });
+
+    // Start quote animation after text animation
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      _quoteController.forward();
+    });
   }
 
   void _navigateToHome() {
@@ -116,7 +148,7 @@ class _SplashScreenState extends State<SplashScreen>
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomeScreen(),
+            const LoginScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: animation,
@@ -133,6 +165,7 @@ class _SplashScreenState extends State<SplashScreen>
     _logoController.dispose();
     _textController.dispose();
     _backgroundController.dispose();
+    _quoteController.dispose();
     super.dispose();
   }
 
@@ -279,6 +312,44 @@ class _SplashScreenState extends State<SplashScreen>
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                      ),
+
+                      // Motivational quote with fade animation
+                      const SizedBox(height: 40),
+                      FadeTransition(
+                        opacity: _quoteFadeAnimation,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              _selectedQuote,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                height: 1.5,
+                                fontStyle: FontStyle.italic,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    offset: const Offset(0, 2),
+                                    blurRadius: 4,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
