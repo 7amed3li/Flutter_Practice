@@ -13,16 +13,29 @@ class LoginScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color(0xFFF5F7FA), // Light background for contrast
-        ),
+        color: AppTheme.backgroundLight,
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 100),
-              // Header Section
+              const SizedBox(height: 80),
+              // Header Section with Logo
+              Center(
+                child: FadeIn(
+                  delay: 200,
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/appstore.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -35,18 +48,18 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                         'Misafir Olarak Devam Et',
                         style: GoogleFonts.poppins(
-                          color: AppTheme.primaryBlue,
+                          color: AppTheme.vividBlue,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ),
                   FadeIn(
-                    delay: 200,
+                    delay: 300,
                     child: Text(
                       'Tekrar Hoşgeldiniz,',
                       style: GoogleFonts.poppins(
-                        fontSize: 32,
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: AppTheme.deepBlue,
                       ),
@@ -55,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                   FadeIn(
                     delay: 400,
                     child: Text(
-                      'Keşfetmeye devam etmek için giriş yapın',
+                      'Babyom dünyasına giriş yapın',
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: Colors.grey[600],
@@ -65,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               
               // Form Section
               FadeIn(
@@ -83,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                       prefixIcon: Icons.lock_outline,
                       isPassword: true,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -91,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                         child: Text(
                           'Şifremi Unuttum?',
                           style: GoogleFonts.poppins(
-                            color: AppTheme.primaryBlue,
+                            color: AppTheme.vividBlue,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -103,12 +116,15 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         // TODO: Implement Login Logic
                       },
+                      gradient: const LinearGradient(
+                        colors: [AppTheme.vividBlue, Color(0xFF4FC3F7)],
+                      ),
                     ),
                   ],
                 ),
               ),
               
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               
               // Footer Section
               FadeIn(
@@ -130,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                         child: Text(
                           'Kayıt Ol',
                           style: GoogleFonts.poppins(
-                            color: AppTheme.primaryBlue,
+                            color: AppTheme.softPink,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

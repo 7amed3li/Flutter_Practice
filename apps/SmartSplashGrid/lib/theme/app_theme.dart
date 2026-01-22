@@ -2,66 +2,76 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Premium color palette
-  static const Color primaryBlue = Color(0xFF4b6cb7);
-  static const Color deepBlue = Color(0xFF182848);
-  static const Color accentCyan = Color(0xFF00d4ff);
-  static const Color accentPurple = Color(0xFF9b59b6);
-  static const Color cardPink = Color(0xFFe74c3c);
-  static const Color cardGreen = Color(0xFF2ecc71);
-  static const Color cardOrange = Color(0xFFf39c12);
-  
-  // Gradient definitions
+  // Babyom / Anne Bebe Brand Palette
+  static const Color vividBlue = Color(0xFF009BEF); // Main Brand Blue
+  static const Color softPink = Color(0xFFFF8FAB); // Accent Pink
+  static const Color deepBlue = Color(0xFF005A8D); // Darker Blue for text/contrast
+  static const Color surfaceWhite = Color(0xFFFFFFFF);
+  static const Color backgroundLight = Color(0xFFF2F9FF); // Very subtle blue tint
+
+  // Gradients
   static const LinearGradient splashGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
     colors: [
-      Color(0xFF4b6cb7),
-      Color(0xFF667eea),
-      Color(0xFF764ba2),
-      Color(0xFF182848),
+      vividBlue,
+      Color(0xFF007ECC), // Slightly darker blue for depth
     ],
-    stops: [0.0, 0.3, 0.7, 1.0],
   );
-  
+
   static const LinearGradient cardGradient1 = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF4b6cb7), Color(0xFF182848)],
+    colors: [vividBlue, Color(0xFF4FC3F7)],
   );
-  
+
   static const LinearGradient cardGradient2 = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+    colors: [softPink, Color(0xFFFFB2C9)],
   );
   
   static const LinearGradient cardGradient3 = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF2ecc71), Color(0xFF27ae60)],
+    colors: [Color(0xFF26C6DA), Color(0xFF80DEEA)], // Teal/Cyan
   );
-  
+
   static const LinearGradient cardGradient4 = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFf39c12), Color(0xFFe74c3c)],
+    colors: [Color(0xFFFFB74D), Color(0xFFFFCC80)], // Warm Orange
   );
-  
+
   // Light theme
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryBlue,
+        seedColor: vividBlue,
+        primary: vividBlue,
+        secondary: softPink,
         brightness: Brightness.light,
+        surface: surfaceWhite,
       ),
+      scaffoldBackgroundColor: backgroundLight,
       textTheme: GoogleFonts.poppinsTextTheme(),
-      scaffoldBackgroundColor: const Color(0xFFF5F7FA),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: deepBlue),
+        titleTextStyle: TextStyle(
+          color: deepBlue,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       cardTheme: CardThemeData(
-        elevation: 8,
+        elevation: 4,
+        shadowColor: vividBlue.withOpacity(0.2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
     );

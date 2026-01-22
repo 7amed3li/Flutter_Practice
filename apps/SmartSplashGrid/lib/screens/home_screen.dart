@@ -3,7 +3,7 @@ import '../widgets/dashboard_card.dart';
 import '../theme/app_theme.dart';
 import 'onemli_bilgiler_screen.dart';
 import 'sss_screen.dart';
-import 'profile_screen.dart';
+import 'video_library_screen.dart';
 
 /// Main dashboard home screen
 /// 
@@ -18,19 +18,23 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: AppTheme.backgroundLight,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
         title: const Text(
           'Anne Bebek Sağlığı',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 28,
+            fontSize: 24,
             color: AppTheme.deepBlue,
           ),
         ),
         centerTitle: false,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_none_rounded, color: AppTheme.deepBlue),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -44,20 +48,21 @@ class HomeScreen extends StatelessWidget {
               Text(
                 'Hoş geldiniz!',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
                 ),
               ),
               
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               
               // Grid view
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 15,
-                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.85, // Taller cards
                   children: [
                     // Card 1: 7/24 Midwife Support
                     DashboardCard(
@@ -72,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                     // Card 2: Important Information
                     DashboardCard(
                       title: 'Önemli Bilgiler',
-                      icon: Icons.info_rounded,
+                      icon: Icons.menu_book_rounded,
                       gradient: AppTheme.cardGradient2,
                       onTap: () {
                         Navigator.of(context).push(
@@ -85,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                     
                     // Card 3: Topics/FAQ
                     DashboardCard(
-                      title: 'Konular',
+                      title: 'Sorular & Cevaplar',
                       icon: Icons.question_answer_rounded,
                       gradient: AppTheme.cardGradient3,
                       onTap: () {
@@ -97,15 +102,15 @@ class HomeScreen extends StatelessWidget {
                       },
                     ),
                     
-                    // Card 4: Video Tutorials
+                    // Card 4: Video Tutorials (Previously Profile)
                     DashboardCard(
                       title: 'Video Eğitimler',
-                      icon: Icons.play_circle_rounded,
+                      icon: Icons.play_lesson_rounded,
                       gradient: AppTheme.cardGradient4,
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const ProfileScreen(),
+                            builder: (context) => const VideoLibraryScreen(),
                           ),
                         );
                       },
@@ -125,7 +130,7 @@ class HomeScreen extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$featureName yakında eklenecek!'),
-        duration: const Duration(seconds: 2),
+        backgroundColor: AppTheme.deepBlue,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

@@ -120,7 +120,7 @@ class SignupScreen extends StatelessWidget {
                         child: Text(
                           'Giriş Yap',
                           style: GoogleFonts.poppins(
-                            color: AppTheme.primaryBlue,
+                            color: AppTheme.vividBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

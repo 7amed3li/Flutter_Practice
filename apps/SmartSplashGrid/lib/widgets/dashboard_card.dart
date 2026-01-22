@@ -94,11 +94,11 @@ class _DashboardCardState extends State<DashboardCard>
                 boxShadow: [
                   BoxShadow(
                     color: _isPressed
-                        ? Colors.black.withOpacity(0.15)
-                        : Colors.black.withOpacity(0.25),
-                    blurRadius: _isPressed ? 15 : 20,
-                    spreadRadius: _isPressed ? 1 : 3,
-                    offset: Offset(0, _isPressed ? 5 : 8),
+                        ? widget.gradient.colors.last.withOpacity(0.4)
+                        : widget.gradient.colors.last.withOpacity(0.25), // Customized shadow color based on gradient
+                    blurRadius: _isPressed ? 10 : 15,
+                    spreadRadius: _isPressed ? 1 : 0,
+                    offset: Offset(0, _isPressed ? 4 : 8),
                   ),
                 ],
               ),
