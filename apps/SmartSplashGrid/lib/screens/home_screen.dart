@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/dashboard_card.dart';
 import '../theme/app_theme.dart';
 import 'onemli_bilgiler_screen.dart';
@@ -70,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                       icon: Icons.support_agent_rounded,
                       gradient: AppTheme.cardGradient1,
                       onTap: () {
-                        _showComingSoonSnackBar(context, '7/24 Ebe Destek');
+                        _launchWhatsApp(context);
                       },
                     ),
                     
@@ -137,5 +138,48 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Launches WhatsApp with the specified number
+  Future<void> _launchWhatsApp(BuildContext context) async {
+    // Show a loading/feedback message immediately
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('WhatsApp\'a yönlendiriliyor...'),
+        duration: Duration(seconds: 2),
+        backgroundColor: AppTheme.deepBlue,
+      ),
+    );
+
+    // Create the URL with a pre-filled message
+    // Using wa.me format: https://wa.me/<number>?text=<urlencodedtext>
+    final String message = 'Merhaba, destek almak istiyorum.';
+    final Uri whatsappUrl = Uri.parse(
+      'https://wa.me/905336359610?text=${Uri.encodeComponent(message)}',
+    );
+
+    try {
+      if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars(); // Clear the "redirecting" message
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('WhatsApp açılamadı veya yüklü değil.'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Hata oluştu: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 }

@@ -13,11 +13,20 @@ dependencies:
   google_fonts: ^6.1.0
   video_player: ^2.8.2
   chewie: ^1.7.5
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/appstore.png"
+  adaptive_icon_background: "#009BEF"
+  adaptive_icon_foreground: "assets/images/appstore.png"
 
 flutter:
   uses-material-design: true
